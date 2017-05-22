@@ -1,0 +1,51 @@
+<div  class="bg-light lter b-b wrapper-md">
+    <h3 class="m-n font-thin h3">客户查询</h3>
+</div>
+
+<div class="wrapper-md">
+
+    <div class="panel panel-default">
+
+        <div class="form-group">
+            <div class="form-inline clearfix panel-heading">
+                <!-- 用户姓名 -->
+                <i class="fa fa-mobile-phone fa-lg"></i>
+                <label>
+                    <input type="text" class="form-control"  ng-model="addClientParams.customerPhone" placeholder="手机号">
+                </label>
+                <i class="fa fa-credit-card"></i>
+                <label>
+                    <input type="text" class="form-control" ng-model="addClientParams.customerName" placeholder="姓名">
+                </label>
+                <!-- 操作 -->
+                <div class="btn-group" dropdown>
+                    <button class="btn btn-info m-l h-34" ng-click="queryClient()">
+                        <i class="fa fa-search" aria-hidden="true"></i>&nbsp;&nbsp;查询
+                    </button>
+                    <button type="button" class="btn btn-info dropdown-toggle m-l h-34" dropdown-toggle>
+                        <span class="caret"></span>
+                        <span class="sr-only">Split button!</span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href ng-click="uploadWorkOrderInExcel()">上传导入(xls)</a></li>
+                        <li><a href ng-click="deleteWorkOrder()">删除单据</a></li>
+                        <li><a href ng-click="confirmSlipChange()">提交确认</a></li>
+                        <li><a href ng-click="accountSlipChange()">审核审核</a></li>
+                        <li class="divider"></li>
+                        <li><a ng-click="downLoadWorkOrder()">导出工单</a></li>
+                        <li><a href="excel/bill/claim/bill-claim-result-template.xls">下载示例</a></li>
+                    </ul>
+
+                    <button class="btn btn-warning m-l h-34" ng-click="showAddClientModal()">
+                        +&nbsp;&nbsp;添加客户
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- 数据表格 with ngGird-->
+        <div class="table-responsive">
+            <div ng-grid="gridOptions" class="text-center" style="min-height:420px"></div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pkh.pkec.phone.mapper.WorkorderCustomMapper">
+    <resultMap id="BaseResultMap" type="com.pkh.pkec.phone.po.WorkOrderCustom" extends="com.pkh.pkec.phone.mapper.WorkOrderMapper.BaseResultMap">
+
+        <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+        <result column="customer_phone" jdbcType="VARCHAR" property="mobile" />
+        <result column="customer_type" jdbcType="VARCHAR" property="customerType" />
+        <result column="customer_sex" jdbcType="VARCHAR" property="sex" />
+        <result column="bind_card" jdbcType="VARCHAR" property="cardCode" />
+        <result column="wx_open_id" jdbcType="VARCHAR" property="weixin" />
+        <result column="customer_email" jdbcType="VARCHAR" property="customerEmail" />
+        <result column="customer_address" jdbcType="VARCHAR" property="customerAddress" />
+        <result column="customer_rank" jdbcType="VARCHAR" property="customerRank" />
+        <result column="customer_handler" jdbcType="VARCHAR" property="customerHandler" />
+        <result column="customer_remark" jdbcType="VARCHAR" property="customerRemark" />
+    </resultMap>
+    <resultMap id="excelMap" type="com.pkh.pkec.phone.po.WorkOrderAndCustomerInfo">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="serial_no" jdbcType="VARCHAR" property="serialNo" />
+        <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+        <result column="customer_phone" jdbcType="VARCHAR" property="customerPhone" />
+        <result column="customer_type" jdbcType="VARCHAR" property="customerType" />
+        <result column="customer_sex" jdbcType="VARCHAR" property="customerSex" />
+        <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+        <result column="begintime" jdbcType="TIMESTAMP" property="begintime" />
+        <result column="endtime" jdbcType="TIMESTAMP" property="endtime" />
+        <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+        <result column="channel" jdbcType="VARCHAR" property="channel" />
+        <result column="call_states" jdbcType="VARCHAR" property="callStates" />
+        <result column="workorder_type" jdbcType="VARCHAR" property="workorderType" />
+        <result column="feedback" jdbcType="VARCHAR" property="feedback" />
+        <result column="status" jdbcType="VARCHAR" property="status" />
+        <result column="handler" jdbcType="VARCHAR" property="handler" />
+    </resultMap>
+
+    <sql id="sqlWhere">
+        <where>
+            and 1 = 1
+            <if test="serialNo != null and serialNo != '' ">
+                and serial_no = #{serialNo}
+            </if>
+            <if test="customerName != null and customerName != '' ">
+                and customer_name = #{customerName}
+            </if>
+            <if test="mobile != null and mobile != '' ">
+                and customer_phone = #{mobile}
+            </if>
+            <if test="cardCode != null and cardCode != '' ">
+                and bind_card = #{cardCode}
+            </if>
+            <if test="customerType != null and customerType != '' ">
+                and customer_type = #{customerType}
+            </if>
+            <if test="createFromTime != null and createFromTime != '' and createToTime != null and createToTime != '' ">
+                and createtime &lt;=  #{createToTime} and createtime &gt;= #{createFromTime}
+            </if>
+            <if test="workorderType != null and workorderType != '' ">
+                and workorder_type = #{workorderType}
+            </if>
+            <if test="finished != null and finished != '' ">
+                and status = #{finished}
+            </if>
+            <if test="handler != null and handler != '' ">
+                and handler = #{handler}
+            </if>
+        </where>
+    </sql>
+
+
+    <select id="selectWorkorderListByQueryVo" parameterType="com.pkh.pkec.phone.po.WorkorderQueryVo" resultMap="BaseResultMap" >
+        select * from crm_workorder cw
+        JOIN crm_customer_manage ccm
+        on cw.customer_id = ccm.customer_code
+        <include refid="sqlWhere" />
+        <if test="page != null and page != 0 and rows != null and rows != 0">
+            limit #{beginRowIndex},#{rows}
+        </if>
+    </select>
+
+    <select id="selectWorkorderListByQueryVoWithoutPage" parameterType="com.pkh.pkec.phone.po.WorkorderQueryVo"
+            resultMap="excelMap">
+        select
+        cw.id id, serial_no serialNo, customer_name customerName,customer_phone customerPhone,customer_type customerType,customer_sex customerSex, createtime, begintime, endtime, updatetime, channel,
+        call_states callStates, workorder_type workorderType, feedback, status, handler
+        from crm_workorder cw
+        JOIN crm_customer_manage ccm on cw.customer_id = ccm.customer_code
+--         join crm_option_item on
+        <include refid="sqlWhere" />
+    </select>
+
+</mapper>

@@ -1,0 +1,51 @@
+<div class="modal-header">
+    <h3 class="modal-title">预约详情</h3>
+</div>
+<div class="modal-body">
+    <div class="container-fluid clearfix">
+        <div>
+            <dl class="dl-horizontal">
+                <dt>机构名称</dt>
+                <dd>{{subscribeOrderDetail.mecShopName}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>机构地址</dt>
+                <dd>{{subscribeOrderDetail.mecShopAddress}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>体检时间</dt>
+                <dd>{{subscribeOrderDetail.checkupTime}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>体检类型</dt>
+                <dd>{{subscribeOrderDetail.checkupTypeValue}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>客户姓名</dt>
+                <dd>{{subscribeOrderDetail.checkupUserName}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>客户电话</dt>
+                <dd>{{subscribeOrderDetail.checkupTel}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>预约卡号</dt>
+                <dd>{{subscribeOrderDetail.idCard}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>性别</dt>
+                <dd>{{subscribeOrderDetail.userSex | sexFilter}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>婚否</dt>
+                <dd>{{subscribeOrderDetail.userMarried | marriedFilter}}</dd>
+            </dl>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="okSubscribe()">
+        确认
+    </button>
+    <button class="btn btn-warning" ng-click="cancelSubscribe()">退出</button>
+</div>

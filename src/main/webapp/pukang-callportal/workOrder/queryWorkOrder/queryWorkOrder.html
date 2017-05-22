@@ -1,0 +1,92 @@
+<div  class="bg-light lter b-b wrapper-md">
+    <h3 class="m-n font-thin h3">工单查询</h3>
+</div>
+
+<div class="wrapper-md">
+
+    <div class="panel panel-default">
+
+        <div class="form-group">
+            <div class="form-inline clearfix panel-heading">
+                <div class="col-md-6">
+                    <!-- 查询条件 -->
+
+                    <!-- 单据日期 -->
+                    <label>工单日期</label>
+                    <p class="input-group">
+                        <input type="text" class="form-control" datepicker-popup="yyyy-MM-dd"
+                               ng-model="queryParam.createFromTime" is-open="openedBegin"
+                               datepicker-options="dateOptions"
+                               ng-required="true"
+                               close-text="关闭" />
+                         <span class="input-group-btn">
+                         <button type="button" class="btn btn-default" ng-click="open($event,0)"><i class="glyphicon glyphicon-calendar"></i></button>
+                      </span>
+                    </p>
+                    <!--结束日期-->
+                    <label>~</label>
+                    <p class="input-group">
+                        <input type="text" class="form-control" datepicker-popup="yyyy-MM-dd"
+                               ng-model="queryParam.createToTime" is-open="openedEnd"
+                               datepicker-options="dateOptions"
+                               ng-required="true"
+                               close-text="关闭" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open($event,1)"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <!-- 用户姓名 -->
+                    <label class="m-l">用户姓名</label>
+                    <input type="text" class="form-control" ng-model="queryParam.customerName">
+
+                    <label class="m-l">用户电话</label>
+                    <input type="text" class="form-control" ng-model="queryParam.mobile">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-inline clearfix panel-heading">
+                <div class="col-md-6">
+                    <!-- 流水号 -->
+                    <label class="m-l">流水号</label>
+                    <input type="text" class="form-control" ng-model="queryParam.serialNo">
+                    <!--身份证号-->
+                    <label class="m-l">身份证号</label>
+                    <input type="text" class="form-control" ng-model="queryParam.idCard">
+                </div>
+                <div class="col-md-6">
+                    <!-- 卡号 -->
+                    <label class="m-l">卡号</label>
+                    <input type="text" class="form-control" ng-model="queryParam.cardCode">
+
+                    <!--卡号-->
+                    <!-- 操作 -->
+                    <div class="btn-group" dropdown>
+                        <button type="button" class="btn btn-info m-l h-34" ng-click="submitQueryParams()">查询</button>
+                        <button type="button" class="btn btn-info dropdown-toggle m-l h-34" dropdown-toggle>
+                            <span class="caret"></span>
+                            <span class="sr-only">Split button!</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href ng-click="uploadWorkOrderInExcel()">上传导入(xls)</a></li>
+                            <li><a href="excel/downLoadWorkOrder_template.xls">下载模板</a></li>
+                            <!--<li><a href ng-click="deleteWorkOrder()">删除单据</a></li>-->
+                            <!--<li><a href ng-click="confirmSlipChange()">提交确认</a></li>-->
+                            <!--<li><a href ng-click="accountSlipChange()">审核审核</a></li>-->
+                            <li class="divider"></li>
+                            <li><a ng-click="downLoadWorkOrder()">导出工单</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 数据表格 with ngGird-->
+        <div class="table-responsive">
+            <div ng-grid="gridOptions" class="text-center" style="min-height:420px"></div>
+        </div>
+    </div>
+
+</div>

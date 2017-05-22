@@ -1,0 +1,43 @@
+<div  class="bg-light lter b-b wrapper-md">
+    <h3 class="m-n font-thin h3">新建工单</h3>
+</div>
+
+<div class="wrapper-md">
+
+    <div class="panel panel-default">
+
+        <div class="form-group">
+            <div class="form-inline clearfix panel-heading">
+                <div class="col-md-7">
+                    <div class="form-group">
+                        <i class="fa fa-mobile-phone fa-lg"></i>
+                        <label>
+                            <input type="text" class="form-control"  ng-model="addClientParams.customerPhone" placeholder="手机号">
+                        </label>
+                        <i class="fa fa-credit-card"></i>
+                        <label>
+                            <input type="text" class="form-control" ng-model="addClientParams.customerName" placeholder="姓名">
+                        </label>
+                        <div class="btn-group">
+                            <button class="btn btn-info m-l h-34" ng-click="queryClient()">
+                                <i class="fa fa-search" aria-hidden="true"></i>&nbsp;&nbsp;查询
+                            </button>
+                            <button class="btn btn-warning m-l h-34" ng-click="showAddClientModal()">
+                                +&nbsp;&nbsp;添加客户
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--显示用户信息-->
+        <div class="container-fluid">
+            <div class="queryClient" style="border-bottom: 1px solid #92be0f;">
+                <div ng-grid="gridOptions" class="text-center" style="min-height: 100px"></div>
+            </div>
+            <div ng-show="toggleTpl.isShowNewOrder" style="background: #eee;padding-top: 10px">
+                <div data-ng-include="'pukang-callportal/commonTpl/screenTpl.html'"></div>
+            </div>
+        </div>
+    </div>
+</div>

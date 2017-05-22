@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="PKCallPortal:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="PKCallPortal.war">
+      <element id="artifact" artifact-name="PKCallPortal:war exploded" />
+    </root>
+  </artifact>
+</component>

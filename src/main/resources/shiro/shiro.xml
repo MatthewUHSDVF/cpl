@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 缓存管理器 使用Ehcache实现 -->
+	<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<property name="cacheManagerConfigFile" value="classpath:shiro/ehcache.xml"/>
+	</bean>
+
+	<!-- 会话Cookie模板 -->
+	<bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+		<property name="name" value="sid"/>
+		<property name="httpOnly" value="true"/>
+		<property name="maxAge" value="2592000"/>
+	</bean>
+
+	<bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+		<property name="name" value="rememberMe"/>
+		<property name="httpOnly" value="true"/>
+		<property name="maxAge" value="2592000"/><!-- 30天 -->
+	</bean>
+
+	<!-- 会话ID生成器 -->
+	<bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
+
+	<!-- rememberMe管理器 -->
+	<bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+		<!-- rememberMe cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度（128 256 512 位）-->
+		<property name="cipherKey"
+				  value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmJXFs0KTA3Kprsdag==')}"/>
+		<property name="cookie" ref="rememberMeCookie"/>
+	</bean>
+
+	<!-- 会话DAO -->
+	<bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
+		<property name="activeSessionsCacheName" value="shiro-activeSessionCache"/>
+		<property name="sessionIdGenerator" ref="sessionIdGenerator"/>
+	</bean>
+
+	<!-- 会话验证调度器 -->
+	<bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.quartz.QuartzSessionValidationScheduler">
+		<property name="sessionValidationInterval" value="1800000"/>
+		<property name="sessionManager" ref="sessionManager"/>
+	</bean>
+
+	<!-- 会话管理器 -->
+	<bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+		<property name="globalSessionTimeout" value="1800000"/>
+		<property name="deleteInvalidSessions" value="true"/>
+		<property name="sessionValidationSchedulerEnabled" value="true"/>
+		<property name="sessionValidationScheduler" ref="sessionValidationScheduler"/>
+		<property name="sessionDAO" ref="sessionDAO"/>
+		<property name="sessionIdCookieEnabled" value="true"/>
+		<property name="sessionIdCookie" ref="sessionIdCookie"/>
+	</bean>
+
+
+	<!-- 继承自AuthorizingRealm的自定义Realm,即指定Shiro验证用户登录的类为自定义的ShiroDbRealm.java -->
+	<bean id="customShiroRealm" class="com.pkh.pkec.phone.controller.shiro.UserShiroRealm">
+		<property name="cachingEnabled" value="true"/>
+		<property name="authenticationCachingEnabled" value="false"/>
+		<property name="authenticationCacheName" value="authenticationCache"/>
+		<property name="authorizationCachingEnabled" value="false"/>
+		<property name="authorizationCacheName" value="authorizationCache"/>
+	</bean>
+
+	<!-- Shiro默认会使用Servlet容器的Session,可通过sessionMode属性来指定使用Shiro原生Session -->
+	<!-- 即<property name="sessionMode" value="native"/>,详细说明见官方文档 -->
+	<!-- 这里主要是设置自定义的单Realm应用,若有多个Realm,可使用'realms'属性代替 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="customShiroRealm"/>
+		<property name="sessionManager" ref="sessionManager"/>
+		<property name="cacheManager" ref="cacheManager"/>
+		<property name="rememberMeManager" ref="rememberMeManager"/>
+	</bean>
+
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<!-- Shiro的核心安全接口,这个属性是必须的 -->
+		<property name="securityManager" ref="securityManager"/>
+		<!-- 要求登录时的链接(可根据项目的URL进行替换),非必须的属性,默认会自动寻找Web工程根目录下的"/login.jsp"页面 -->
+		<property name="loginUrl" value="/pukang-callportal/login/login.html"/>
+		<property name="unauthorizedUrl" value="/login" />
+		<property name="successUrl" value="/" />
+		<!-- Shiro连接约束配置,即过滤链的定义 -->
+		<!-- 此处可配合我的这篇文章来理解各个过滤连的作用http://blog.csdn.net/jadyer/article/details/12172839 -->
+		<!-- 下面value值的第一个'/'代表的路径是相对于HttpServletRequest.getContextPath()的值来的 -->
+		<!-- anon：它对应的过滤器里面是空的,什么都没做,这里.do和.jsp后面的*表示参数,比方说login.jsp?main这种 -->
+		<!-- authc：该过滤器下的页面必须验证后才能访问,它是Shiro内置的一个拦截器org.apache.shiro.web.filter.authc.FormAuthenticationFilter -->
+		<property name="filterChainDefinitions">
+			<value>
+				<!--/auth/login/** = anon-->
+				<!--/logout = cacf-->
+				<!--/index.html = anon-->
+				<!--/test/testCookie = anon-->
+				<!--/loginCaptcha = anon-->
+				<!--/captcha/sendCaptchaWithoutValidate = anon-->
+				<!--/checkup/** = cacf-->
+				<!--/shop/** = cacf-->
+				<!--/home/** = cacf-->
+				<!--/checkUser=cacf-->
+				<!--/order/** = cacf-->
+				<!--/system/** = cacf-->
+				<!--/user/pushPaymentResult = anon-->
+				<!--/user/PushCheckPassword = anon-->
+				<!--/user/** = cacf-->
+				<!--/tpc/** = cacf-->
+			</value>
+		</property>
+		<!-- 自定义的filter -->
+		<!--<property name="filters">-->
+			<!--<map>-->
+				<!--<entry key="cacf" value-ref="customAccessControlFilter"/>-->
+			<!--</map>-->
+		<!--</property>-->
+
+		<property name="filters">
+			<map>
+				<entry key="cacf" value-ref="userAccessControlFilter"/>
+			</map>
+		</property>
+	</bean>
+
+	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+
+	<bean id="userAccessControlFilter" class="com.pkh.pkec.phone.controller.shiro.UserAccessControlFilter" />
+    <!--
+        <bean id="ajaxUserFilter" class="com.pkh.pkoperate.service.AjaxUserFilter" />
+      -->
+
+</beans>

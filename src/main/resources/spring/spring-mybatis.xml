@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.pkh.pkec.phone.mapper"/>
+    </bean>
+
+
+    <!-- dataSource -->
+    <bean id="crmDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName">
+            <value>java:comp/env/${crmdb}</value>
+        </property>
+    </bean>
+
+    <!-- sqlSessionFactory -->
+    <bean id="crmSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="crmDataSource" />
+    </bean>
+
+    <!-- dataSource -->
+    <bean id="businessDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName">
+            <value>java:comp/env/${businessdb}</value>
+        </property>
+    </bean>
+
+    <!-- sqlSessionFactory -->
+    <bean id="businessdbSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="businessDataSource"/>
+    </bean>
+
+    <bean id="orderMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.pkh.pkec.order.dao.PKECOrderMapper"/>
+        <property name="sqlSessionFactory" ref="businessdbSqlSessionFactory"></property>
+    </bean>
+
+    <bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.pkh.pkec.phone.mapper.UserMapper"/>
+        <property name="sqlSessionFactory" ref="crmSqlSessionFactory"></property>
+    </bean>
+
+    <bean id="workOrderMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.pkh.pkec.phone.mapper.WorkOrderMapper"/>
+        <property name="sqlSessionFactory" ref="crmSqlSessionFactory"></property>
+    </bean>
+
+    <bean id="crmOptionItemMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.pkh.pkec.phone.mapper.CrmOptionItemMapper"/>
+        <property name="sqlSessionFactory" ref="crmSqlSessionFactory"></property>
+    </bean>
+
+    <bean id="workorderCustomMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.pkh.pkec.phone.mapper.WorkorderCustomMapper"/>
+        <property name="sqlSessionFactory" ref="crmSqlSessionFactory"></property>
+    </bean>
+
+    <bean id="customerManageMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.pkh.pkec.phone.mapper.CustomerManageMapper"/>
+        <property name="sqlSessionFactory" ref="crmSqlSessionFactory"></property>
+    </bean>
+
+
+</beans>

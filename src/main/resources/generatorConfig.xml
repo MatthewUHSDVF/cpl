@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >  
+<generatorConfiguration>
+	
+	<!-- db properties
+		<properties resource="/users/jason/documents/workspace/ssca/config/jdbc/db.properties"/>  
+		<context:property-placeholder location="classpath:jdbc/db.properties" />
+	-->
+
+	<classPathEntry location="C:/Users/administrator/.m2/repository/mysql/mysql-connector-java/5.1.29/mysql-connector-java-5.1.29.jar"/>
+	
+	<!-- database context -->  
+	<context id="crmdb">
+    
+		<!-- comment setting-->  
+		<commentGenerator >  
+			<property name="suppressAllComments" value="false"/><!-- 是否取消注释 -->  
+			<property name="suppressDate" value="true" /> <!-- 是否生成注释代时间戳-->  
+		</commentGenerator>  
+
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"  
+			connectionURL="jdbc:mysql://rds260kj5i2879nym9a9o.mysql.rds.aliyuncs.com:3306/crm_dev?useUnicode=true&amp;characterEncoding=utf8"
+			userId="pukangdev"
+			password="pukangdev_123"
+		/>  
+                      
+		<!-- 类型转换 -->  
+		<javaTypeResolver>  
+			<!-- 是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.） -->  
+			<property name="forceBigDecimals" value="true"/>  
+		</javaTypeResolver>  
+          
+		<!-- 生成实体类地址 -->    
+		<javaModelGenerator targetPackage="com.pkh.pkec.phone.po"
+			targetProject="src/main/java" >
+			<!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->  
+			<property name="enableSubPackages" value="false"/>  
+			<!-- 是否针对string类型的字段在set的时候进行trim调用 -->  
+			<property name="trimStrings" value="true"/>  
+		</javaModelGenerator>  
+          
+		<!-- 生成mapxml文件 -->  
+		<sqlMapGenerator targetPackage="com.pkh.pkec.phone.mapper"
+			targetProject="C:/work/trunk/PKCallPortal/src/main/java" >
+			<!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->  
+			<property name="enableSubPackages" value="false" />  
+		</sqlMapGenerator>  
+          
+		<!-- 生成mapxml对应client，也就是接口dao -->      
+		<javaClientGenerator targetPackage="com.pkh.pkec.phone.mapper"
+			targetProject="C:/work/trunk/PKCallPortal/src/main/java"
+							 type="XMLMAPPER" >
+			<!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->  
+			<property name="enableSubPackages" value="false" />  
+		</javaClientGenerator>  
+          
+		<!-- tables -->      
+		<table schema="crm_dev" tableName="crm_seat_user"
+			   domainObjectName="User" enableCountByExample="true"
+			   enableDeleteByExample="true" enableSelectByExample="true"
+			   enableUpdateByExample="true">
+		</table>
+		<table schema="crm_dev" tableName="crm_workorder"
+			   domainObjectName="WorkOrder" enableCountByExample="true"
+			   enableDeleteByExample="true" enableSelectByExample="true"
+			   enableUpdateByExample="true">
+		</table>
+		<table schema="crm_dev" tableName="crm_option_item"
+			   domainObjectName="CrmOptionItem" enableCountByExample="true"
+			   enableDeleteByExample="true" enableSelectByExample="true"
+			   enableUpdateByExample="true">
+		</table>
+		<table schema="crm_dev" tableName="crm_customer_manage"
+			   domainObjectName="CustomerManage" enableCountByExample="true"
+			   enableDeleteByExample="true" enableSelectByExample="true"
+			   enableUpdateByExample="true">
+		</table>
+
+	</context>
+</generatorConfiguration>  

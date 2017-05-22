@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Maven: com.pukanghealth:pkcore-commons:1.2.4-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/pukanghealth/pkcore-commons/1.2.4-SNAPSHOT/pkcore-commons-1.2.4-20170104.093019-292.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/pukanghealth/pkcore-commons/1.2.4-SNAPSHOT/pkcore-commons-1.2.4-20170104.093019-292-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

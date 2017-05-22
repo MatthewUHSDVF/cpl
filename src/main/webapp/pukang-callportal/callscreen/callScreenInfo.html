@@ -1,0 +1,113 @@
+<div class="col-md-4">
+    <div  class="bg-light lter b-b wrapper-md">
+        <h3 class="m-n font-thin h3">来电信息</h3>
+    </div>
+    <div class="wrapper-md">
+
+        <div class="panel panel-default clearfix text-center" style="min-height: 500px;background: #EEE">
+
+            <!--近期来电-->
+            <div ui-nav>
+                <ul class="nav">
+                    <li class="active">
+                        <a href class="auto">
+                            <span class="pull-right text-muted">
+                                <i class="fa fa-fw fa-angle-right text"></i>
+                                <i class="fa fa-fw fa-angle-down text-active"></i>
+                            </span>
+                            <i class="glyphicon pull-left glyphicon-earphone font-bold"></i>
+                            <span class="font-bold text-warning-dker">最近来电</span>
+                        </a>
+                        <ul class="nav nav-sub" style="background: #f0f3f4;">
+                            <li class="text-center" style="padding: 5px 0;font-size: 16px;">
+                                <ul class="list-inline">
+                                    <li>
+                                       <span class="font-bold text-warning-dker">
+                                           12000000000
+                                       </span>
+                                    </li>
+                                    <li style="margin: 0 40px;">
+                                        <a class="text-info-lter" href="" title="点击查看详情">详情</a>
+                                    </li>
+                                    <li>
+                                        <a href="" title="点击回电"><i class="glyphicon glyphicon-phone"></i></a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="line bg-gd-dk"></div>
+
+            <!--未接来电-->
+            <div ui-nav>
+                <ul class="nav">
+                    <li>
+                        <a href class="auto">
+                            <span class="pull-right text-muted">
+                                <i class="fa fa-fw fa-angle-right text"></i>
+                                <i class="fa fa-fw fa-angle-down text-active"></i>
+                            </span>
+                            <i class="glyphicon pull-left glyphicon-earphone font-bold"></i>
+                            <span class="font-bold text-danger-dk">
+                                未接来电
+                            </span>
+                        </a>
+                        <ul class="nav nav-sub" style="background: #f0f3f4;">
+                            <li class="text-center" style="padding: 5px 0;font-size: 16px;">
+                                <ul class="list-inline">
+                                    <li>
+                                       <span class="font-bold text-danger-dk">
+                                           12000000000
+                                       </span>
+                                    </li>
+                                    <li style="margin: 0 40px;">
+                                        <a class="text-info-lter" href="" title="点击查看详情">详情</a>
+                                    </li>
+                                    <li>
+                                        <a href="" title="点击回电"><i class="glyphicon glyphicon-phone"></i></a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="line bg-gd-dk"></div>
+            <!--全部来电-->
+            <div ui-nav>
+                <ul class="nav">
+                    <li>
+                        <a href class="auto">
+                            <span class="pull-right text-muted">
+                                <i class="fa fa-fw fa-angle-right text"></i>
+                                <i class="fa fa-fw fa-angle-down text-active"></i>
+                            </span>
+                            <i class="glyphicon pull-left glyphicon-earphone font-bold"></i>
+                            <span class="font-bold text-info-dk">全部来电</span>
+                        </a>
+                        <ul class="nav nav-sub" style="background: #f0f3f4;">
+                            <li class="text-center" style="padding: 5px 0;font-size: 16px;">
+                                <ul class="list-inline">
+                                    <li>
+                                       <span class="font-bold text-info-dk">
+                                           12000000000
+                                       </span>
+                                    </li>
+                                    <li style="margin: 0 40px;">
+                                        <a class="text-info-lter" href="" title="点击查看详情">详情</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" ng-click="softphonebarDialout(15209247084)" title="点击回电"><i class="glyphicon glyphicon-phone"></i></a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-8" ui-view></div>

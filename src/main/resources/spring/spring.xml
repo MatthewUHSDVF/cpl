@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+
+    <util:properties id="hostsSetting" location="file:///${EXTERNAL_DIR}/hosts.properties" />
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+        <property name="searchSystemEnvironment" value="true" />
+        <property name="locations">
+            <list>
+                <value>file:///${EXTERNAL_DIR}/PKCallPortal/PKCallPortal.properties</value>
+                <value>file:///${EXTERNAL_DIR}/hosts.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="phoneMoileActivateService" class="com.pkh.pkec.phone.service.impl.PhoneMoileActivateServiceImpl">
+        <constructor-arg index="0" value="${pkcore.url}"/>
+    </bean>
+
+
+    <bean id="orderService" class="com.pkh.pkec.order.service.impl.OrderServiceImpl">
+        <property name="orderMapper" ref="orderMapper"/>
+    </bean>
+
+    <bean id="userService" class="com.pkh.pkec.phone.service.impl.UserServiceImpl">
+        <property name="userMapper" ref="userMapper"/>
+    </bean>
+
+    <bean id="workOrderService" class="com.pkh.pkec.phone.service.impl.WorkOrderServiceImpl">
+        <property name="workOrderMapper" ref="workOrderMapper"/>
+        <property name="crmOptionItemMapper" ref="crmOptionItemMapper"/>
+        <property name="workorderCustomMapper" ref="workorderCustomMapper"/>
+        <property name="customerManageMapper" ref="customerManageMapper"/>
+    </bean>
+
+    <bean id="customerManageService" class="com.pkh.pkec.phone.service.impl.CustomerManageServiceImpl">
+        <property name="customerManageMapper" ref="customerManageMapper"/>
+    </bean>
+
+    <bean id="subscribeMecOrderService" class="com.pkh.pkec.phone.service.impl.SubscribeMecOrderServiceImpl">
+        <constructor-arg index="0" value="${pukang.pkec.url}"/>
+    </bean>
+
+
+    <!--<bean id="viewResolver"-->
+          <!--class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+        <!--<property name="viewClass"-->
+                  <!--value="org.springframework.web.servlet.view.JstlView" />-->
+        <!--<property name="prefix" value="/WEB-INF/" />-->
+        <!--<property name="suffix" value=".html"></property>-->
+    <!--</bean>-->
+
+
+</beans>

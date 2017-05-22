@@ -1,0 +1,83 @@
+<div class="modal-header">
+    <h3 class="modal-title">工单详情</h3>
+</div>
+<div class="modal-body">
+    <div class="container-fluid clearfix">
+        <div>
+            <dl class="dl-horizontal">
+                <dt>流水号</dt>
+                <dd>{{workOrderDetail.serialNo}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>用户姓名</dt>
+                <dd>{{workOrderDetail.customerName}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>卡号</dt>
+                <dd>{{workOrderDetail.cardCode}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>手机号</dt>
+                <dd>{{workOrderDetail.mobile}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>性别</dt>
+                <dd>{{workOrderDetail.sex | sexFilter}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>创建时间</dt>
+                <dd>{{workOrderDetail.createtime | date:'yyyy-MM-dd HH:mm:ss'}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>是否处理</dt>
+                <dd>{{workOrderDetail.status | finishedFilter}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>开始时间</dt>
+                <dd>{{workOrderDetail.begintime | date:'yyyy-MM-dd HH:mm:ss'}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>结束时间</dt>
+                <dd>{{workOrderDetail.endtime | date:'yyyy-MM-dd HH:mm:ss'}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>卡余额</dt>
+                <dd>{{workOrderDetail.amt | currency:'￥'}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>冻结余额</dt>
+                <dd>{{workOrderDetail.availableAmt | currency:'￥'}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>可用余额</dt>
+                <dd>{{workOrderDetail.freezedAmt | currency:'￥'}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>处理人</dt>
+                <dd>{{workOrderDetail.handler}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>婚否</dt>
+                <dd>{{workOrderDetail.married | marriedFilter}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>工单类型</dt>
+                <dd>{{workOrderDetail.workorderType | workOrderTypeFilter}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>卡状态</dt>
+                <dd>{{workOrderDetail.cardStatus | statusFilter}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>咨询内容</dt>
+                <dd>{{workOrderDetail.feedback}}</dd>
+            </dl>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">
+        确认
+    </button>
+    <button class="btn btn-warning" ng-click="cancel()">退出</button>
+</div>

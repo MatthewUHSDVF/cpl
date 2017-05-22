@@ -1,0 +1,14 @@
+
+<div class="modal-header">
+    <h3 class="modal-title">{{title}}</h3>
+</div>
+
+<div class="modal-body">
+    <p class="m-t-md" ng-bind-html="message | trustHtml"></p>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-addon btn-success" ng-click="btnOKClick()" >
+        <i class="fa fa-arrow-circle-o-up"></i> 确定
+    </button>
+</div>
